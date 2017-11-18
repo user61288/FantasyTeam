@@ -17,9 +17,22 @@ module.exports = function(app) {
 		});
 	});
 
-	// app.post("/api/user", function(req, res) {
-	// 	db.User.create({
-			
-	// 	})
-	// });
+	//GET all users
+	app.get("/api/users", function(req, res) {
+		db.Users.findAll({}).then( function(dbUsers) {
+			res.json(dbUsers);
+		});
+	});
+
+	//POST add new user to database
+	app.post("/api/users", function(req, res) {
+		db.Users.create({
+			name: req.body.name,
+			email: req.body.email,
+			password: req.body.password,
+			teamName: req.body.teamName
+		}).then( function(new_user) {
+			res.json(new_user);
+		});
+	});
 };

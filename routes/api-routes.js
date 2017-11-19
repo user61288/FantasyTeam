@@ -5,7 +5,7 @@ module.exports = function(app) {
 	app.get("/api/players", function(req, res) {
 		db.Players.findAll({}).then(function(dbPlayer) {
 			res.json(dbPlayer);
-		});
+		}); 
 	});
 
 	//GET specifc player by id
@@ -19,8 +19,8 @@ module.exports = function(app) {
 
 	//GET all users
 	app.get("/api/users", function(req, res) {
-		db.Users.findAll({}).then( function(dbUsers) {
-			res.json(dbUsers);
+		db.Users.findAll({}).then( function(dbUser) {
+			res.json(dbUser);
 		});
 	});
 

@@ -20,7 +20,17 @@ module.exports = function(sequelize, DataType){
 			type: DataType.STRING,
 			allowNull: false
 		}, 
-		teamMembers: DataType.STRING,
+		teamMembers: {
+			type: DataType.STRING,
+			defaultValue: function() {
+				var string = "";
+				for(var i=0; i<7; i++) {
+					var num = Math.floor((Math.random() * 35) +1);
+					string += num + ",";
+				};
+				return string;
+			}
+		},
 		score: {
 			type: DataType.INTEGER,
 			defaultValue: 0

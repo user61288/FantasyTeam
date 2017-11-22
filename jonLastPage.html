@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Game Time</title>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		
+	</head>
+	<body>
+
+		<div class="container">
+			<button>Play</button>
+			<div class="row">
+				
+			</div>		
+		</div>
+
+
+		<script
+		  src="https://code.jquery.com/jquery-3.2.1.min.js"
+		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		  crossorigin="anonymous">
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+
+
+
+		<script type="application/javascript">
+			$(document).ready( function() {
+				getData();
+
+				function getData() {
+					$.get("/api/users", function(data) {
+						for(var i=1;i<5;i++) {
+							addToPage(data[i]);
+						}
+					});
+				};
+
+				function addToPage(user) {
+					console.log(user);
+					var column = $("<div class='col user'>");
+					var info = $("<div>");
+
+					var img = $("<img src=' "+ user.image +" ' height='50' width='50'>");
+
+					var uName = $("<p>");
+					uName.html(user.name);
+					var uTeam = $("<p>");
+					uTeam.html(user.teamName);
+
+					var roster = user.teamMembers.split(",");
+					var box = $("<div>");
+
+					for(var i=0; i<7; i++) {
+						$.get("/api/players/" + roster[i], function(data) {
+							
+							var player = $("<div>");
+
+							var i = $("<img src='"+ data[0].image +"' height='30' width='30'>");
+							var n = $("<p>");
+							n.html(data[0].name);
+
+							player.append(i);
+							player.append(n);
+							box.append(player);
+						});
+					};
+					[
+						img,
+						uName,
+						uTeam,
+						box
+					].forEach( function(element) {
+						info.append(element);
+					});
+					
+					column.append(info);
+					$(".row").append(column);
+				}
+			});
+		</script>
+	</body>
+</html>

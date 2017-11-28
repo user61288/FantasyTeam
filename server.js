@@ -1,4 +1,9 @@
 // *** Dependencies
+
+var path = require('path');
+var methodOverride = require("method-override");
+var LocalStrategy = require('passport-local');
+
 var express = require("express");
 var bodyParser = require("body-parser");
 var passport   = require('passport');
@@ -8,8 +13,8 @@ var env = require('dotenv').load();
 
 // Requiring our models for syncing
 var db = require("./models");
-console.log(db);
-console.log(db.Users);
+//console.log(db);
+//console.log(db.Users);
 
 require('./config/passport/passport.js')(passport, db.Users);
 
@@ -36,10 +41,10 @@ app.engine('hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 
-var authRoute = require('./routes/auth.js')(app, passport);
-
-//require("./routes/html-routes.js")(app);
+require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
+
+var authRoute = require('./routes/auth.js')(app, passport);
 
 db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {

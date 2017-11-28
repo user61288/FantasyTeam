@@ -80,4 +80,44 @@ module.exports = function(app) {
 			res.json(data);
 		});
 	});
-};
+
+	function randomTeam(cb){
+		db.Players.findAll({
+			where: {
+				value: 0
+			}
+		}).then(function(dbPlayers) {
+			var numbersGenerated = [];
+			var teamMembers = [];
+			while (teamMembers.length < 7){
+
+				var randomID = Math.floor(Math.random() * dbPlayers.length);
+
+				if (numbersGenerated.indexOf(randomID) == -1){
+
+					teamMembers.push(dbPlayers[randomID].id);
+					numbersGenerated.push(randomID);
+				}
+
+			}
+			console.log(teamMembers.toString());
+			cb(teamMembers);
+			//return teamMembers.toString();
+		});
+	};
+
+	function writeUser(username, email, password, teamMembers) {
+		db.Users.create({
+			name: username,
+			email: email,
+			password: password,
+			teamName: username + " Team",
+			teamMembers : teamMembers.toString()
+		})
+			.then(function(dbUser) {
+			return dbUser;
+
+		});
+	};
+}
+

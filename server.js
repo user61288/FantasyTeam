@@ -1,4 +1,10 @@
 // *** Dependencies
+require('./config/passport/passport.js')(passport, db.Users);
+
+var path = require('path');
+var methodOverride = require("method-override");
+var LocalStrategy = require('passport-local');
+
 var express = require("express");
 var bodyParser = require("body-parser");
 var passport   = require('passport');
@@ -10,8 +16,6 @@ var env = require('dotenv').load();
 var db = require("./models");
 console.log(db);
 console.log(db.Users);
-
-require('./config/passport/passport.js')(passport, db.Users);
 
 // Sets up the Express App
 var app = express();
@@ -35,6 +39,25 @@ app.engine('hbs', exphbs({
     extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
+
+app.use(methodOverride("_method"));
+// View Engine
+app.set('views', path.join(__dirname, 'views'));
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
+app.use(express.static("public"));
+
+require("./routes/html-routes.js")(app);
+require("./routes/api-routes.js")(app);
+
+
+// Express Session
+app.use(session({
+    secret: 'secret',
+    saveUninitialized: true,
+    resave: true
+}));
 
 var authRoute = require('./routes/auth.js')(app, passport);
 

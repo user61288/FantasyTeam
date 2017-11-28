@@ -12,7 +12,12 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "method-override": "^2.3.10",
     "mysql2": "^1.5.0",
+<<<<<<< HEAD
     "sequelize": "^4.22.7",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
@@ -20,5 +25,11 @@
     "bcrypt-nodejs": "^0.0.3",
     "express-handlebars": "^3.0.0",
     "dotenv": "^4.0.0"
+=======
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "sequelize": "^4.22.7"
+>>>>>>> f6d718dc4f6de42b7b9dcfef68b1addcfa108655
   }
 }

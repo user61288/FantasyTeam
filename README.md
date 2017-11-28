@@ -11,12 +11,12 @@ This is a game of chance modeling a fantasy football game. Depending on your tea
 * Aruna Vallur
 
 ## High Level Design
-1 Wireframe mockups
-2 Database Design
-3 API Design
-4 Game Logic
-5 Github setup
-6 Happy coding!
+1. Wireframe mockups
+2. Database Design
+3. API Design
+4. Game Logic
+5. Github setup
+6. Happy coding!
 
 ## Technologies used
 * Node

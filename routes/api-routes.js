@@ -80,14 +80,6 @@ module.exports = function(app) {
 			res.json(data);
 		});
 	});
-};
-
-
-
-
-
-
-
 
 	function randomTeam(cb){
 		db.Players.findAll({
@@ -114,9 +106,6 @@ module.exports = function(app) {
 		});
 	};
 
-
-
-
 	function writeUser(username, email, password, teamMembers) {
 		db.Users.create({
 			name: username,
@@ -130,5 +119,5 @@ module.exports = function(app) {
 
 		});
 	};
-};
+}
 

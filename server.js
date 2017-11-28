@@ -1,5 +1,4 @@
 // *** Dependencies
-require('./config/passport/passport.js')(passport, db.Users);
 
 var path = require('path');
 var methodOverride = require("method-override");
@@ -14,8 +13,10 @@ var env = require('dotenv').load();
 
 // Requiring our models for syncing
 var db = require("./models");
-console.log(db);
-console.log(db.Users);
+//console.log(db);
+//console.log(db.Users);
+
+require('./config/passport/passport.js')(passport, db.Users);
 
 // Sets up the Express App
 var app = express();
@@ -40,29 +41,10 @@ app.engine('hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 
-app.use(methodOverride("_method"));
-// View Engine
-app.set('views', path.join(__dirname, 'views'));
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
-
-app.use(express.static("public"));
-
 require("./routes/html-routes.js")(app);
 require("./routes/api-routes.js")(app);
 
-
-// Express Session
-app.use(session({
-    secret: 'secret',
-    saveUninitialized: true,
-    resave: true
-}));
-
 var authRoute = require('./routes/auth.js')(app, passport);
-
-//require("./routes/html-routes.js")(app);
-require("./routes/api-routes.js")(app);
 
 db.sequelize.sync({ force: false }).then(function() {
   app.listen(PORT, function() {

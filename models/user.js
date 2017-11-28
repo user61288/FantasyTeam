@@ -58,5 +58,3 @@ module.exports = function(sequelize, DataType){
 //    	if(err) throw err;
 //    	callback(null, isMatch);
 //	});
-//}
->>>>>>> f6d718dc4f6de42b7b9dcfef68b1addcfa108655
